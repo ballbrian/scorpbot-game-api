@@ -5,8 +5,8 @@ var app = express();
 
 var apicalypse = require('apicalypse').default;
 
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+app.listen(process.env.PORT || 3000, () => {
+    console.log("Server is running");
 })
 
 app.get("/games/:name", async (req, res, next) => {
@@ -24,8 +24,6 @@ try{
         .search('"'+ req.params.name +'"') // search for a specific name (search implementations can vary)
 
         .request("https://api-v3.igdb.com/search"); // execute the query and return a response object
-    
-        console.log(response);
 
         res.send(response.data[0].game.summary)
 } catch(err) {
